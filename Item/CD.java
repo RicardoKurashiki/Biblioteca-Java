@@ -1,27 +1,16 @@
 package Item;
 
 public class CD extends Item {
-
-    private String nomeCD;
-    // TODO -> Ver mais categorias
-
     // -> Construtores
-    public CD(String nomeCD) {
-        this.nomeCD = nomeCD;
-    }
-
-    // -> Getters e Setters
-    public String getNomeCD() {
-        return this.nomeCD;
-    }
-
-    public void setNomeCD(String novoNome) {
-        this.nomeCD = novoNome;
+    public CD(int idItem, String tituloItem) {
+        super.setIdItem(idItem);
+        super.setTitulo(tituloItem);
+        super.setDisponibilidade(Disponibilidade.DISPONIVEL);
     }
 
     @Override
     public String toString() {
-        return "CD: " + this.nomeCD;
+        return "CD: " + super.getTituloItem();
     }
 
 }

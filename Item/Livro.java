@@ -1,63 +1,72 @@
 package Item;
 
 public class Livro extends Item {
-
-	private String autorLivro, nomeLivro;
+	private String autorLivro;
 	private int totPagLivro;
 
-	// -> Construtores
-	public Livro(String nomeLivro, String autorLivro, int totPagLivro) {
-		this.nomeLivro = nomeLivro;
+	// -> Construtor
+	public Livro(int idItem, String tituloItem, Disponibilidade dispItem, String autorLivro, int totPagLivro) {
+		super.setIdItem(idItem);
+		super.setTitulo(tituloItem);
+		super.setDisponibilidade(dispItem);
 		this.autorLivro = autorLivro;
 		this.totPagLivro = totPagLivro;
 	}
 
-	public Livro(String nomeLivro, int totPagLivro) {
-		this.nomeLivro = nomeLivro;
-		this.autorLivro = "Anonimo";
+	public Livro(int idItem, String tituloItem, String autorLivro, int totPagLivro) {
+		super.setIdItem(idItem);
+		super.setTitulo(tituloItem);
+		super.setDisponibilidade(Disponibilidade.DISPONIVEL);
+		this.autorLivro = autorLivro;
 		this.totPagLivro = totPagLivro;
 	}
 
-	public Livro(String nomeLivro, String autorLivro) {
-		this.nomeLivro = nomeLivro;
+	public Livro(int idItem, String tituloItem, String autorLivro) {
+		super.setIdItem(idItem);
+		super.setTitulo(tituloItem);
+		super.setDisponibilidade(Disponibilidade.DISPONIVEL);
 		this.autorLivro = autorLivro;
 		this.totPagLivro = 0;
 	}
 
-	public Livro(String nomeLivro) {
-		this.nomeLivro = nomeLivro;
+	public Livro(int idItem, String tituloItem, int totPagLivro) {
+		super.setIdItem(idItem);
+		super.setTitulo(tituloItem);
+		super.setDisponibilidade(Disponibilidade.DISPONIVEL);
+		this.autorLivro = "Anonimo";
+		this.totPagLivro = totPagLivro;
+	}
+
+	public Livro(int idItem, String tituloItem) {
+		super.setIdItem(idItem);
+		super.setTitulo(tituloItem);
+		super.setDisponibilidade(Disponibilidade.DISPONIVEL);
 		this.autorLivro = "Anonimo";
 		this.totPagLivro = 0;
 	}
 
 	// -> Getters e Setters
-	public String getNome() {
-		return this.nomeLivro;
-	}
 
-	public String getAutor() {
+	public String getAutorItem() {
 		return this.autorLivro;
 	}
 
-	public int getTotPag() {
+	public int getTotalPaginas() {
 		return this.totPagLivro;
 	}
 
-	public void setNomeLivro(String novoNome) {
-		this.nomeLivro = novoNome;
+	public void setAutorItem(String nome) {
+		this.autorLivro = nome;
 	}
 
-	public void setAutor(String novoNome) {
-		this.autorLivro = novoNome;
-	}
-
-	public void setTotPag(int novoTotPag) {
-		this.totPagLivro = novoTotPag;
+	public void setTotalPaginas(int paginas) {
+		this.totPagLivro = paginas;
 	}
 
 	@Override
 	public String toString() {
-		return "Livro: " + this.nomeLivro + ", de " + this.autorLivro + ", com " + this.totPagLivro + " paginas.";
+		return "Livro: " + super.getTituloItem() + ", de " + this.autorLivro + ", com " + this.totPagLivro
+				+ " paginas.";
 	}
 
 }

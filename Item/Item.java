@@ -2,8 +2,34 @@ package Item;
 
 public abstract class Item {
 
-	private int IdItem;
+	private int idItem;
 	private String tituloItem;
 	private Disponibilidade dispItem;
+
+	// -> Getters e Setters
+
+	public int getIdItem() {
+		return this.idItem;
+	}
+
+	public String getTituloItem() {
+		return this.tituloItem;
+	}
+
+	public Disponibilidade getDisponibilidade() {
+		return this.dispItem;
+	}
+
+	protected void setIdItem(int id) {
+		this.idItem = id;
+	}
+
+	protected void setTitulo(String titulo) {
+		this.tituloItem = titulo;
+	}
+
+	public void setDisponibilidade(Disponibilidade disponibilidade) {
+		this.dispItem = disponibilidade;
+	}
 
 }

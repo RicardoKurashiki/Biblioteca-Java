@@ -20,6 +20,10 @@ public class ListaAmigos {
 		return this.alAmigos;
 	}
 
+	public int getTamanhoLista() {
+		return this.alAmigos.size();
+	}
+
 	public void addAmigo(Amigo novoAmigo) {
 		this.alAmigos.add(novoAmigo);
 	}
