@@ -11,10 +11,14 @@ import Item.Disponibilidade;
 import Amigo.Amigo;
 import Amigo.ListaAmigos;
 
+import Emprestimo.Emprestimo;
+import Emprestimo.ListaEmprestimos;
+
 public class Principal {
 	public static void main(String[] args) {
 		Biblioteca bib = new Biblioteca("Biblioteca Pessoal");
 		ListaAmigos listaAmigos = new ListaAmigos();
+		ListaEmprestimos listaEmprestimos = new ListaEmprestimos();
 		boolean appOn = true;
 		Scanner scanner = new Scanner(System.in);
 
@@ -32,6 +36,16 @@ public class Principal {
 		bib.addNovoItem(cd2);
 		bib.addNovoItem(livro1);
 		bib.addNovoItem(livro2);
+
+		Amigo amigo1 = new Amigo(0, "Carlos Eduardo");
+		Amigo amigo2 = new Amigo(1, "Mateus Ferro");
+		Amigo amigo3 = new Amigo(2, "Joao Klein");
+		Amigo amigo4 = new Amigo(3, "Milena Silverio");
+
+		listaAmigos.addAmigo(amigo1);
+		listaAmigos.addAmigo(amigo2);
+		listaAmigos.addAmigo(amigo3);
+		listaAmigos.addAmigo(amigo4);
 		// --- FIM DOS DUMMIES --- //
 
 		while (appOn) {
@@ -44,10 +58,10 @@ public class Principal {
 					menuRegistrarAmigo(listaAmigos);
 					break;
 				case 3:
-					System.out.println("CASE 3");
+					menuEmprestarItem(bib, listaAmigos, listaEmprestimos);
 					break;
 				case 4:
-					System.out.println("CASE 4");
+					menuDevolverItem(bib, listaAmigos, listaEmprestimos);
 					break;
 				case 5:
 					System.out.println("CASE 5");
@@ -156,6 +170,87 @@ public class Principal {
 		listaAmigos.addAmigo(new Amigo(idAmigo, nomeAmigo));
 		System.out.println("Amigo adicionado!");
 		System.out.println(idAmigo + " - " + nomeAmigo);
+	}
+
+	public static void menuEmprestarItem(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos) {
+		Scanner scanner = new Scanner(System.in);
+		int opcaoItem = 0, opcaoAmigo = 0;
+		boolean invalidInput = true;
+		while (invalidInput) {
+			System.out.println("\n--- Emprestar item ---");
+			for (var item : bib.getAlItem()) {
+				if (item.getDisponibilidade().equals(Disponibilidade.DISPONIVEL))
+					System.out.println("<" + item.getIdItem() + "> " + item.getClass().getSimpleName() + " - "
+							+ item.getTituloItem());
+			}
+			System.out.println("<" + bib.getAlItem().size() + "> Voltar para menu");
+			System.out.print(">> ");
+			opcaoItem = scanner.nextInt();
+			if (opcaoItem == bib.getAlItem().size()) {
+				return;
+			} else if (opcaoItem >= 0 && opcaoItem < bib.getAlItem().size()) {
+				invalidInput = false;
+			} else {
+				System.out.println("\nValor incorreto! Tente novamente!");
+			}
+		}
+		invalidInput = true;
+		while (invalidInput) {
+			System.out.println("\n--- Escolher Amigo ---");
+			for (Amigo amigo : listaAmigos.getListaAmigos()) {
+				System.out.println("<" + amigo.getIdAmigo() + "> " + amigo.getNomeAmigo());
+			}
+			System.out.println("<" + listaAmigos.getTamanhoLista() + "> Cancelar emprestimo");
+			System.out.print(">> ");
+			opcaoAmigo = scanner.nextInt();
+			if (opcaoAmigo == listaAmigos.getTamanhoLista()) {
+				return;
+			} else if (opcaoAmigo >= 0 && opcaoAmigo < listaAmigos.getTamanhoLista()) {
+				invalidInput = false;
+			} else {
+				System.out.println("\nValor incorreto! Tente novamente!");
+			}
+		}
+		for (var item : bib.getAlItem()) {
+			for (Amigo amigo : listaAmigos.getListaAmigos()) {
+				if (item.getIdItem() == opcaoItem && amigo.getIdAmigo() == opcaoAmigo) {
+					listaEmprestimos.addEmprestimo(new Emprestimo(amigo, item));
+					System.out.println("Emprestado com sucesso!");
+					break;
+				}
+			}
+		}
+	}
+
+	public static void menuDevolverItem(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos) {
+		Scanner scanner = new Scanner(System.in);
+		int opcaoEmprestimo = 0;
+		boolean invalidInput = true;
+		while (invalidInput) {
+			System.out.println("\n--- Devolver item ---");
+			for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
+				System.out.println("<" + emprestimo.getIdItem() + "> " + emprestimo.getItem().getClass().getSimpleName()
+						+ " - " + emprestimo.getItem().getTituloItem() + " || " + emprestimo.getAmigo().getNomeAmigo());
+			}
+			System.out.println("<" + listaEmprestimos.getAlEmprestimos().size() + "> Voltar para menu");
+			System.out.print(">> ");
+			opcaoEmprestimo = scanner.nextInt();
+			if (opcaoEmprestimo == listaEmprestimos.getAlEmprestimos().size()) {
+				return;
+			} else if (opcaoEmprestimo >= 0 && opcaoEmprestimo < listaEmprestimos.getAlEmprestimos().size()) {
+				invalidInput = false;
+			} else {
+				System.out.println("\nValor incorreto! Tente novamente!");
+			}
+		}
+		for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
+			if (emprestimo.getIdItem() == opcaoEmprestimo) {
+				System.out.println(emprestimo.getItem().getTituloItem());
+				listaEmprestimos.removeEmprestimo(emprestimo);
+				System.out.println("Devolvido com sucesso!");
+				break;
+			}
+		}
 	}
 
 	public static void menuAlterarEstado(Biblioteca bib) {

@@ -1,6 +1,8 @@
 package Item;
 
 public class CD extends Item {
+    // TODO => Ver mais caracteristicas
+
     // -> Construtores
     public CD(int idItem, String tituloItem) {
         super.setIdItem(idItem);

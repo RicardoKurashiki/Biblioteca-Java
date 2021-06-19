@@ -1,8 +1,9 @@
 package Item;
 
 public class BluRay extends Item {
-    // -> Construtores
+    // TODO => Ver mais caracteristicas
 
+    // -> Construtores
     public BluRay(int idItem, String tituloItem) {
         super.setIdItem(idItem);
         super.setTitulo(tituloItem);
