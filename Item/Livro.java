@@ -2,40 +2,62 @@ package Item;
 
 public class Livro extends Item {
 
-	private String autorLivro;
+	private String autorLivro, nomeLivro;
 	private int totPagLivro;
 
 	// -> Construtores
-	Livro(String autorLivro, int totPagLivro) {
+	public Livro(String nomeLivro, String autorLivro, int totPagLivro) {
+		this.nomeLivro = nomeLivro;
 		this.autorLivro = autorLivro;
 		this.totPagLivro = totPagLivro;
 	}
 
-	Livro(String autorLivro) {
+	public Livro(String nomeLivro, int totPagLivro) {
+		this.nomeLivro = nomeLivro;
+		this.autorLivro = "Anonimo";
+		this.totPagLivro = totPagLivro;
+	}
+
+	public Livro(String nomeLivro, String autorLivro) {
+		this.nomeLivro = nomeLivro;
 		this.autorLivro = autorLivro;
 		this.totPagLivro = 0;
 	}
 
-	Livro(int totPagLivro) {
-		this.autorLivro = "Autor Anonimo";
-		this.totPagLivro = totPagLivro;
+	public Livro(String nomeLivro) {
+		this.nomeLivro = nomeLivro;
+		this.autorLivro = "Anonimo";
+		this.totPagLivro = 0;
 	}
 
 	// -> Getters e Setters
-	String getAutor() {
+	public String getNome() {
+		return this.nomeLivro;
+	}
+
+	public String getAutor() {
 		return this.autorLivro;
 	}
 
-	int getTotPag() {
+	public int getTotPag() {
 		return this.totPagLivro;
 	}
 
-	void setAutor(String novoNome) {
+	public void setNomeLivro(String novoNome) {
+		this.nomeLivro = novoNome;
+	}
+
+	public void setAutor(String novoNome) {
 		this.autorLivro = novoNome;
 	}
 
-	void setTotPag(int novoTotPag) {
+	public void setTotPag(int novoTotPag) {
 		this.totPagLivro = novoTotPag;
+	}
+
+	@Override
+	public String toString() {
+		return "Livro: " + this.nomeLivro + ", de " + this.autorLivro + ", com " + this.totPagLivro + " paginas.";
 	}
 
 }

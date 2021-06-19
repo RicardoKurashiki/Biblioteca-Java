@@ -6,17 +6,22 @@ public class BluRay extends Item {
     // TODO -> Ver mais caracteristicas
 
     // -> Construtores
-    BluRay(String nomeFilme) {
+    public BluRay(String nomeFilme) {
         this.nomeFilme = nomeFilme;
     }
 
     // -> Getters e Setters
-    String getNomeFilme() {
+    public String getNomeFilme() {
         return this.nomeFilme;
     }
 
-    void setNomeFilme(String novoNome) {
+    public void setNomeFilme(String novoNome) {
         this.nomeFilme = novoNome;
+    }
+
+    @Override
+    public String toString() {
+        return "BluRay: " + this.nomeFilme;
     }
 
 }

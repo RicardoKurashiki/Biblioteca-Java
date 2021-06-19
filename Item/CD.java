@@ -6,17 +6,22 @@ public class CD extends Item {
     // TODO -> Ver mais categorias
 
     // -> Construtores
-    CD(String nomeCD) {
+    public CD(String nomeCD) {
         this.nomeCD = nomeCD;
     }
 
     // -> Getters e Setters
-    String getNomeCD() {
+    public String getNomeCD() {
         return this.nomeCD;
     }
 
-    void setNomeCD(String novoNome) {
+    public void setNomeCD(String novoNome) {
         this.nomeCD = novoNome;
+    }
+
+    @Override
+    public String toString() {
+        return "CD: " + this.nomeCD;
     }
 
 }

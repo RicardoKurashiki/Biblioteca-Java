@@ -9,25 +9,30 @@ public class Biblioteca {
 	private ArrayList<Item> alItem;
 
 	// -> Construtores
+	public Biblioteca(String nomeBib, ArrayList<Item> alItem) {
+		this.nomeBib = nomeBib;
+		this.alItem = alItem;
+	}
+
 	public Biblioteca(String nomeBib) {
 		this.nomeBib = nomeBib;
 		this.alItem = new ArrayList<Item>();
 	}
 
 	// -> Getters e Setters
-	String getNomeBib() {
+	public String getNomeBib() {
 		return this.nomeBib;
 	}
 
-	ArrayList<Item> getAlItem() {
+	public ArrayList<Item> getAlItem() {
 		return this.alItem;
 	}
 
-	void setNomeBib(String novoNome) {
+	public void setNomeBib(String novoNome) {
 		this.nomeBib = novoNome;
 	}
 
-	void addNovoItem(Item novoItem) {
+	public void addNovoItem(Item novoItem) {
 		this.alItem.add(novoItem);
 	}
 

@@ -1,12 +1,36 @@
 package Amigo;
+
 import java.util.ArrayList;
 
 public class ListaAmigos {
 
 	private ArrayList<Amigo> alAmigos;
-	
-	// construtor
-	// getters e setters
-	// toString
 
+	// -> Construtor
+	public ListaAmigos(ArrayList<Amigo> alAmigos) {
+		this.alAmigos = alAmigos;
+	}
+
+	public ListaAmigos() {
+		this.alAmigos = new ArrayList<Amigo>();
+	}
+
+	// -> Getters e Setters
+	public ArrayList<Amigo> getListaAmigos() {
+		return this.alAmigos;
+	}
+
+	public void addAmigo(Amigo novoAmigo) {
+		this.alAmigos.add(novoAmigo);
+	}
+
+	// -> ToString
+	@Override
+	public String toString() {
+		String texto = "";
+		for (Amigo amigo : this.alAmigos) {
+			texto += amigo.getIdAmigo() + " - " + amigo.getNomeAmigo() + "\n";
+		}
+		return texto;
+	}
 }
