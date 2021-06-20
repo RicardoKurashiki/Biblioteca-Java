@@ -385,6 +385,8 @@ public class Principal {
 		int escolhaItem = 0;
 		int idEscolha = 0;
 		boolean invalidInput = true;
+		boolean haHistorico = false;
+
 		while (invalidInput) {
 			System.out.println("\n--- Historico do Item ---");
 			for (var item : bib.getAlItem()) {
@@ -408,11 +410,13 @@ public class Principal {
 		for(Emprestimo emprestimo : todosEmprestimos.getAlEmprestimos()){
 			if(idEscolha == emprestimo.getItem().getIdItem()){
 				if(emprestimo.getDataDevolucao() == null){
+					haHistorico = true;
 					System.out.println("\n--- Empréstimo atual ---");
 					System.out.println("\n- Título do item: <" + emprestimo.getItem().getIdItem() + "> " + emprestimo.getItem().getTituloItem());
 					System.out.println("- Para quem foi emprestado: <" + emprestimo.getAmigo().getIdAmigo() + "> " + emprestimo.getAmigo().getNomeAmigo());
 					System.out.println("- Quando foi emprestado: " + emprestimo.getDataEmprestimo());
 				} else {
+					haHistorico = true;
 					System.out.println("\n- Título do item: <" + emprestimo.getItem().getIdItem() + "> " + emprestimo.getItem().getTituloItem());
 					System.out.println("- Para quem foi emprestado: <" + emprestimo.getAmigo().getIdAmigo() + "> " + emprestimo.getAmigo().getNomeAmigo());
 					System.out.println("- Quando foi emprestado: " + emprestimo.getDataEmprestimo());
@@ -420,6 +424,11 @@ public class Principal {
 				}
 			}
 		}
+
+		if(haHistorico == false){
+			System.out.println("\nNão houveram movimentações com este item!");
+		}
+
 	}
 
 	public static void menuTodosItens(Biblioteca bib){
