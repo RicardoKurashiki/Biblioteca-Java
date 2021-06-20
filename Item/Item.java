@@ -1,6 +1,6 @@
 package Item;
 
-public abstract class Item {
+public abstract class Item implements Comparable<Item>{
 
 	private int idItem;
 	private String tituloItem;
@@ -30,6 +30,11 @@ public abstract class Item {
 
 	public void setDisponibilidade(Disponibilidade disponibilidade) {
 		this.dispItem = disponibilidade;
+	}
+
+	@Override
+	public int compareTo(Item outroItem){
+		return tituloItem.compareTo(outroItem.getTituloItem());
 	}
 
 }

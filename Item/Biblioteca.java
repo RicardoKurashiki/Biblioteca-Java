@@ -3,7 +3,7 @@ package Item;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Biblioteca {
+public class Biblioteca{
 
 	private String nomeBib;
 	private ArrayList<Item> alItem;
