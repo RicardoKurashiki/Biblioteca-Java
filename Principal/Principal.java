@@ -33,29 +33,29 @@ public class Principal {
 		Scanner scanner = new Scanner(System.in);
 
 		// --- DUMMIES --- //
-		BluRay br1 = new BluRay(0, "As cronicas de Narnia");
-		BluRay br2 = new BluRay(1, "Velozes e Furiosos");
-		CD cd1 = new CD(2, "The Beatles");
-		CD cd2 = new CD(3, "Chitaozinho e Xororo");
-		Livro livro1 = new Livro(4, "Harry Potter");
-		Livro livro2 = new Livro(5, "Jogador n1");
-
-		bib.addNovoItem(br1);
-		bib.addNovoItem(br2);
-		bib.addNovoItem(cd1);
-		bib.addNovoItem(cd2);
-		bib.addNovoItem(livro1);
-		bib.addNovoItem(livro2);
-
-		Amigo amigo1 = new Amigo(0, "Carlos Eduardo");
-		Amigo amigo2 = new Amigo(1, "Mateus Ferro");
-		Amigo amigo3 = new Amigo(2, "Joao Klein");
-		Amigo amigo4 = new Amigo(3, "Milena Silverio");
-
-		listaAmigos.addAmigo(amigo1);
-		listaAmigos.addAmigo(amigo2);
-		listaAmigos.addAmigo(amigo3);
-		listaAmigos.addAmigo(amigo4);
+		// BluRay br1 = new BluRay(0, "As cronicas de Narnia");
+		// BluRay br2 = new BluRay(1, "Velozes e Furiosos");
+		// CD cd1 = new CD(2, "The Beatles");
+		// CD cd2 = new CD(3, "Chitaozinho e Xororo");
+		// Livro livro1 = new Livro(4, "Harry Potter");
+		// Livro livro2 = new Livro(5, "Jogador n1");
+		
+		// bib.addNovoItem(br1);
+		// bib.addNovoItem(br2);
+		// bib.addNovoItem(cd1);
+		// bib.addNovoItem(cd2);
+		// bib.addNovoItem(livro1);
+		// bib.addNovoItem(livro2);
+		
+		// Amigo amigo1 = new Amigo(0, "Carlos Eduardo");
+		// Amigo amigo2 = new Amigo(1, "Mateus Ferro");
+		// Amigo amigo3 = new Amigo(2, "Joao Klein");
+		// Amigo amigo4 = new Amigo(3, "Milena Silverio");
+		
+		// listaAmigos.addAmigo(amigo1);
+		// listaAmigos.addAmigo(amigo2);
+		// listaAmigos.addAmigo(amigo3);
+		// listaAmigos.addAmigo(amigo4);
 		// --- FIM DOS DUMMIES --- //
 
 		while (appOn) {
@@ -88,6 +88,12 @@ public class Principal {
 				case 9:
 					menuAlterarEstado(bib);
 					break;
+				case 10:
+					gravarDados(bib, listaAmigos, listaEmprestimos, todosEmprestimos);
+					break;
+				case 11:
+					lerDados(bib, listaAmigos, listaEmprestimos, todosEmprestimos);
+					break;
 				case 0:
 					appOn = false;
 					break;
@@ -111,6 +117,8 @@ public class Principal {
 		System.out.println("<7> Ver histórico do item");
 		System.out.println("<8> Ver todos os itens");
 		System.out.println("<9> Alterar estado de item");
+		System.out.println("<10> Gravar dados");
+		System.out.println("<11> Ler dados");
 		System.out.println("<0> Sair do aplicativo");
 		System.out.print(">> ");
 		return scanner.nextInt();
@@ -588,27 +596,74 @@ public class Principal {
 	public static void gravarDados(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos, ListaEmprestimos todosEmprestimos){
 		ObjectOutputStream saida = null;
 
-		saida = new ObjectOutputStream(new FileOutputStream("C:\\Users\\carlo\\Documents\\GitHub\\Estacionamento-Java\\Dados\\Dados_Binarios.txt"));
-		saida.writeObject(bib);
-		saida.writeObject(listaAmigos);
-		saida.writeObject(listaEmprestimos);
-		saida.writeObject(todosEmprestimos);
-
-		saida.close();
+		try{
+			// TODO: Mudar o caminho para o diretório correto no seu computador.
+			saida = new ObjectOutputStream(new FileOutputStream("C:\\Users\\carlo\\Documents\\GitHub\\Estacionamento-Java\\Dados\\Dados_Binarios.txt"));
+			saida.writeObject(bib);
+			saida.writeObject(listaAmigos);
+			saida.writeObject(listaEmprestimos);
+			saida.writeObject(todosEmprestimos);
+		} catch (IOException e1) {
+			System.out.println(e1.getMessage());
+		} finally {
+			try{
+				if (saida != null) saida.close();
+			}
+			catch (IOException e2) {
+				System.out.println(e2.getMessage());
+			}
+		}
 
 		System.out.println("Dados registrados com sucesso!");
 	}
 
 	public static void lerDados(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos, ListaEmprestimos todosEmprestimos){
 		ObjectInputStream entrada = null;
-		entrada = new ObjectInputStream(new FileInputStream("C:\\Users\\carlo\\Documents\\GitHub\\Estacionamento-Java\\Dados\\Dados_Binarios.txt"));
-		bib = (Biblioteca) entrada.readObject();
-		listaAmigos = (ListaAmigos) entrada.readObject();
-		listaEmprestimos = (ListaEmprestimos) entrada.readObject();
-		todosEmprestimos = (ListaEmprestimos) entrada.readObject();
+		Biblioteca bibtemp = null;
+		ListaAmigos listaAmiTemp = null;
+		ListaEmprestimos listaEmpTemp = null;
+		ListaEmprestimos todosEmpTemp = null;
 
-		entrada.close();
+		try{
+			// TODO: Mudar o caminho para o diretório correto no seu computador.
+			entrada = new ObjectInputStream(new FileInputStream("C:\\Users\\carlo\\Documents\\GitHub\\Estacionamento-Java\\Dados\\Dados_Binarios.txt"));
+			bibtemp = (Biblioteca) entrada.readObject();
+			listaAmiTemp = (ListaAmigos) entrada.readObject();
+			listaEmpTemp = (ListaEmprestimos) entrada.readObject();
+			todosEmpTemp = (ListaEmprestimos) entrada.readObject();
+		} catch (IOException e1) {
+			System.out.println(e1.getMessage());
+		} catch (ClassNotFoundException e2){
+			System.out.println(e2.getMessage());
+		} 
+		finally {
+			try {
+				if( entrada != null){
+					entrada.close();
 
-		System.out.println("Dados carregados com sucesso!");
+					bib.setAlItem(bibtemp.getAlItem());
+					bib.setNomeBib(bibtemp.getNomeBib());
+
+					listaAmigos.setListaAmigos(listaAmiTemp.getListaAmigos());
+
+					listaEmprestimos.setAlEmprestimos(listaEmpTemp.getAlEmprestimos());
+
+					todosEmprestimos.setAlEmprestimos(todosEmpTemp.getAlEmprestimos());
+
+
+					System.out.println("Dados carregados com sucesso!");
+
+
+				}
+			} catch (IOException e3) {
+				System.out.println(e3.getMessage());
+			}
+		}
+
+		System.out.println();
+		System.out.println(bib);
+		System.out.println(listaAmigos);
+		System.out.println(listaEmprestimos);
+		System.out.println(todosEmprestimos);
 	}
 }

@@ -21,6 +21,10 @@ public class ListaAmigos implements Serializable{
 		return this.alAmigos;
 	}
 
+	public void setListaAmigos(ArrayList<Amigo> alAmigos){
+		this.alAmigos = alAmigos;
+	}
+
 	public int getTamanhoLista() {
 		return this.alAmigos.size();
 	}

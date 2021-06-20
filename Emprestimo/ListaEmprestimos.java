@@ -22,6 +22,10 @@ public class ListaEmprestimos implements Serializable{
 		return this.alEmprestimos;
 	}
 
+	public void setAlEmprestimos(ArrayList<Emprestimo> alEmprestimos){
+		this.alEmprestimos = alEmprestimos;
+	}
+
 	public void addEmprestimo(Emprestimo emprestimo) {
 		emprestimo.getItem().setDisponibilidade(Disponibilidade.EMPRESTADO);
 		this.alEmprestimos.add(emprestimo);
@@ -33,4 +37,8 @@ public class ListaEmprestimos implements Serializable{
 	}
 
 	// toString
+	@Override
+	public String toString() {
+        return "Lista de emprestimos: " + alEmprestimos;
+    }
 }
