@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.io.Serializable;
 import Item.Disponibilidade;
 
-public class ListaEmprestimos implements Serializable{
+public class ListaEmprestimos implements Serializable {
 
 	private ArrayList<Emprestimo> alEmprestimos;
 
@@ -22,7 +22,7 @@ public class ListaEmprestimos implements Serializable{
 		return this.alEmprestimos;
 	}
 
-	public void setAlEmprestimos(ArrayList<Emprestimo> alEmprestimos){
+	public void setAlEmprestimos(ArrayList<Emprestimo> alEmprestimos) {
 		this.alEmprestimos = alEmprestimos;
 	}
 
@@ -39,6 +39,10 @@ public class ListaEmprestimos implements Serializable{
 	// toString
 	@Override
 	public String toString() {
-        return "Lista de emprestimos: " + alEmprestimos;
-    }
+		String texto = "";
+		for (Emprestimo emprestimo : this.alEmprestimos) {
+			texto += emprestimo.toString() + "\n";
+		}
+		return "Lista de Emprestimos\n" + texto;
+	}
 }

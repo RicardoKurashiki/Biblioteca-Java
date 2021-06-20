@@ -1,10 +1,9 @@
 package Item;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.io.Serializable;
 
-public class Biblioteca implements Serializable{
+public class Biblioteca implements Serializable {
 
 	private String nomeBib;
 	private ArrayList<Item> alItem;
@@ -29,7 +28,7 @@ public class Biblioteca implements Serializable{
 		return this.alItem;
 	}
 
-	public void setAlItem(ArrayList<Item> alItem){
+	public void setAlItem(ArrayList<Item> alItem) {
 		this.alItem = alItem;
 	}
 
@@ -41,14 +40,13 @@ public class Biblioteca implements Serializable{
 		this.alItem.add(novoItem);
 	}
 
-
 	// m�todos, getters, setters, toString, compareTo etc conforme
 	// a modelagem e encapsulamento que a equipe decidir implementar
 	// v�rias op��es
 
 	@Override
 	public String toString() {
-        return "Biblioteca: " + nomeBib + ", com os seguintes itens: " + alItem;
-    }
+		return "Biblioteca: " + nomeBib + ", com os seguintes itens: " + alItem;
+	}
 
 }

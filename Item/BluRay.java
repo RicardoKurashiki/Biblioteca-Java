@@ -1,7 +1,6 @@
 package Item;
 
 public class BluRay extends Item {
-    // TODO => Ver mais caracteristicas
     private String genero;
 
     // -> Construtores
@@ -19,19 +18,18 @@ public class BluRay extends Item {
     }
 
     // -> Getters
-    public String getGenero(){
+    public String getGenero() {
         return genero;
     }
 
     // -> Setters
-    public void setGenero(String novoGen){
+    public void setGenero(String novoGen) {
         this.genero = novoGen;
     }
 
-
     @Override
     public String toString() {
-        if (genero == null){
+        if (genero == null) {
             return "BluRay: " + super.getTituloItem();
         } else {
             return "BluRay: " + super.getTituloItem() + " do gênero de " + genero;

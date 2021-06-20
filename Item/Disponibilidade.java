@@ -1,6 +1,5 @@
 package Item;
-import java.io.Serializable;
 
-public enum Disponibilidade implements Serializable{
+public enum Disponibilidade {
 	DISPONIVEL, CONSULTALOCAL, EMPRESTADO, DANIFICADO, EXTRAVIADO;
 }

@@ -1,7 +1,8 @@
 package Amigo;
+
 import java.io.Serializable;
 
-public class Amigo implements Serializable{
+public class Amigo implements Serializable {
 
 	private int idAmigo;
 	private String nomeAmigo;
@@ -29,4 +30,8 @@ public class Amigo implements Serializable{
 		this.idAmigo = novoId;
 	}
 
+	@Override
+	public String toString() {
+		return this.nomeAmigo;
+	}
 }

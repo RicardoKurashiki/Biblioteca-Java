@@ -6,7 +6,7 @@ import java.io.Serializable;
 import Amigo.Amigo;
 import Item.Item;
 
-public class Emprestimo implements Serializable{
+public class Emprestimo implements Serializable {
 
 	private Item item;
 	private Amigo amigo;
@@ -72,6 +72,14 @@ public class Emprestimo implements Serializable{
 
 	public void setDataDevolucao(int dia, int mes, int ano) {
 		this.dataDevolucao = LocalDate.of(ano, mes, dia);
+	}
+
+	@Override
+	public String toString() {
+		if (this.dataDevolucao == null)
+			return this.amigo + " - " + this.item + "\n" + this.dataEmprestimo + "\nAinda nao foi devolvido";
+		else
+			return this.amigo + " - " + this.item + "\n" + this.dataEmprestimo + "\n" + this.dataDevolucao;
 	}
 
 }
