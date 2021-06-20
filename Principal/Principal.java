@@ -188,7 +188,7 @@ public class Principal {
 
 	public static void menuEmprestarItem(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos, ListaEmprestimos todosEmprestimos) {
 		Scanner scanner = new Scanner(System.in);
-		int opcaoItem = 0, opcaoAmigo = 0;
+		int opcaoItem = 0, opcaoAmigo = 0, dia, mes, ano, hora, minuto;
 		boolean invalidInput = true;
 		while (invalidInput) {
 			System.out.println("\n--- Emprestar item ---");
@@ -225,54 +225,180 @@ public class Principal {
 				System.out.println("\nValor incorreto! Tente novamente!");
 			}
 		}
-		for (var item : bib.getAlItem()) {
-			for (Amigo amigo : listaAmigos.getListaAmigos()) {
-				if (item.getIdItem() == opcaoItem && amigo.getIdAmigo() == opcaoAmigo) {
-					Emprestimo novoEmprestimo = new Emprestimo(amigo, item);
-					item.setDisponibilidade(Item.Disponibilidade.EMPRESTADO);
-					listaEmprestimos.addEmprestimo(novoEmprestimo);
-					todosEmprestimos.addEmprestimo(novoEmprestimo);
-					System.out.println("Emprestado com sucesso!");
+
+		invalidInput = true;
+		while (invalidInput){
+			System.out.println("\n--- Deseja determinar hora de empréstimo ---");
+			System.out.println("<1> Sim");
+			System.out.println("<2> Não");
+			System.out.println("<0> Cancelar emprestimo");
+			System.out.print(">> ");
+			int opcaoHora = scanner.nextInt();
+			
+			switch (opcaoHora){
+				case 0:
+					System.out.println("Empréstimo cancelado!");
+					invalidInput = false;
 					break;
-				}
+				case 1:
+					System.out.println("\n--- Especifique o horário ---");
+
+					// -> Escaneando e confirmando a data
+					System.out.print("Dia (dia/mes/ano): ");
+					scanner.nextLine();
+					String diaInteiro = scanner.nextLine();
+					String[] valoresDia = diaInteiro.split("/");
+					if (valoresDia.length != 3){
+						System.out.println("\nDigite a data no formato correto!");
+						break;
+					} else {
+						dia = Integer.parseInt(valoresDia[0]);
+						mes = Integer.parseInt(valoresDia[1]);
+						ano = Integer.parseInt(valoresDia[2]);
+					}
+
+					for (var item : bib.getAlItem()) {
+						for (Amigo amigo : listaAmigos.getListaAmigos()) {
+							if (item.getIdItem() == opcaoItem && amigo.getIdAmigo() == opcaoAmigo) {
+								Emprestimo novoEmprestimo = new Emprestimo(amigo, item, LocalDate.of(ano, mes, dia));
+								item.setDisponibilidade(Item.Disponibilidade.EMPRESTADO);
+								listaEmprestimos.addEmprestimo(novoEmprestimo);
+								todosEmprestimos.addEmprestimo(novoEmprestimo);
+								System.out.println("Emprestado com sucesso!");
+								break;
+							}
+						}
+					}
+					invalidInput = false;
+					break;
+				case 2:
+					for (var item : bib.getAlItem()) {
+						for (Amigo amigo : listaAmigos.getListaAmigos()) {
+							if (item.getIdItem() == opcaoItem && amigo.getIdAmigo() == opcaoAmigo) {
+								Emprestimo novoEmprestimo = new Emprestimo(amigo, item);
+								item.setDisponibilidade(Item.Disponibilidade.EMPRESTADO);
+								listaEmprestimos.addEmprestimo(novoEmprestimo);
+								todosEmprestimos.addEmprestimo(novoEmprestimo);
+								System.out.println("Emprestado com sucesso!");
+								break;
+							}
+						}
+					}
+					invalidInput = false;
+					return;
+				default:
+					System.out.println("\nValor incorreto! Tente novamente!");
+					break;
 			}
 		}
 	}
 
 	public static void menuDevolverItem(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos) {
 		Scanner scanner = new Scanner(System.in);
-		int opcaoEmprestimo = 0;
+		int opcaoEmprestimo = 0, dia = 0, mes = 0, ano = 0;
 		boolean invalidInput = true;
-		while (invalidInput) {
-			System.out.println("\n--- Devolver item ---");
-			for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
-				System.out.println("<" + listaEmprestimos.getAlEmprestimos().indexOf(emprestimo) + "> " + emprestimo.getItem().getClass().getSimpleName()
-						+ " - " + emprestimo.getItem().getTituloItem() + " || " + emprestimo.getAmigo().getNomeAmigo());
-			}
-			System.out.println("<" + listaEmprestimos.getAlEmprestimos().size() + "> Voltar para menu");
+		
+		while (invalidInput){
+			System.out.println("\n--- Deseja determinar hora da devolução ---");
+			System.out.println("<1> Sim");
+			System.out.println("<2> Não");
+			System.out.println("<0> Cancelar devolução");
 			System.out.print(">> ");
-			opcaoEmprestimo = scanner.nextInt();
-			if (opcaoEmprestimo == listaEmprestimos.getAlEmprestimos().size()) {
-				return;
-			} else if (opcaoEmprestimo >= 0 && opcaoEmprestimo < listaEmprestimos.getAlEmprestimos().size()) {
-				invalidInput = false;
-			} else {
-				System.out.println("\nValor incorreto! Tente novamente!");
+			int opcaoHora = scanner.nextInt();
+			
+			switch (opcaoHora){
+				case 0:
+					System.out.println("Devolução cancelada!");
+					invalidInput = false;
+					break;
+				case 1:
+					System.out.println("\n--- Especifique o horário ---");
+
+					invalidInput = true;
+					while (invalidInput) {
+						System.out.print("Dia (dia/mes/ano): ");
+						scanner.nextLine();
+						String diaInteiro = scanner.nextLine();
+						String[] valoresDia = diaInteiro.split("/");
+						if (valoresDia.length != 3){
+							System.out.println("\nDigite a data no formato correto!");
+							break;
+						} else {
+							dia = Integer.parseInt(valoresDia[0]);
+							mes = Integer.parseInt(valoresDia[1]);
+							ano = Integer.parseInt(valoresDia[2]);
+						}
+
+						System.out.println("\n--- Devolver item ---");
+						for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
+							System.out.println("<" + listaEmprestimos.getAlEmprestimos().indexOf(emprestimo) + "> " + emprestimo.getItem().getClass().getSimpleName()
+									+ " - " + emprestimo.getItem().getTituloItem() + " || " + emprestimo.getAmigo().getNomeAmigo());
+						}
+						System.out.println("<" + listaEmprestimos.getAlEmprestimos().size() + "> Voltar para menu");
+						System.out.print(">> ");
+						opcaoEmprestimo = scanner.nextInt();
+						if (opcaoEmprestimo == listaEmprestimos.getAlEmprestimos().size()) {
+							return;
+						} else if (opcaoEmprestimo >= 0 && opcaoEmprestimo < listaEmprestimos.getAlEmprestimos().size()) {
+							invalidInput = false;
+						} else {
+							System.out.println("\nValor incorreto! Tente novamente!");
+						}
+					}
+					for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
+						if (listaEmprestimos.getAlEmprestimos().indexOf(emprestimo) == opcaoEmprestimo) {
+			
+							emprestimo.setDataDevolucao(LocalDate.of(ano, mes, dia));
+							emprestimo.getItem().setDisponibilidade(Disponibilidade.DISPONIVEL);
+							listaEmprestimos.removeEmprestimo(emprestimo);
+			
+							System.out.println(emprestimo.getItem().getTituloItem());
+							System.out.println("Devolvido com sucesso!");
+			
+							break;
+						}
+					}
+					break;
+				case 2:
+					invalidInput = true;
+
+					while (invalidInput) {
+						System.out.println("\n--- Devolver item ---");
+						for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
+							System.out.println("<" + listaEmprestimos.getAlEmprestimos().indexOf(emprestimo) + "> " + emprestimo.getItem().getClass().getSimpleName()
+									+ " - " + emprestimo.getItem().getTituloItem() + " || " + emprestimo.getAmigo().getNomeAmigo());
+						}
+						System.out.println("<" + listaEmprestimos.getAlEmprestimos().size() + "> Voltar para menu");
+						System.out.print(">> ");
+						opcaoEmprestimo = scanner.nextInt();
+						if (opcaoEmprestimo == listaEmprestimos.getAlEmprestimos().size()) {
+							return;
+						} else if (opcaoEmprestimo >= 0 && opcaoEmprestimo < listaEmprestimos.getAlEmprestimos().size()) {
+							invalidInput = false;
+						} else {
+							System.out.println("\nValor incorreto! Tente novamente!");
+						}
+					}
+
+					for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
+						if (listaEmprestimos.getAlEmprestimos().indexOf(emprestimo) == opcaoEmprestimo) {
+							emprestimo.setDataDevolucao(LocalDate.now());
+							emprestimo.getItem().setDisponibilidade(Disponibilidade.DISPONIVEL);
+							listaEmprestimos.removeEmprestimo(emprestimo);
+			
+							System.out.println(emprestimo.getItem().getTituloItem());
+							System.out.println("Devolvido com sucesso!");
+			
+							break;
+						}
+					}
+					break;
+				default:
+					System.out.println("\nValor incorreto! Tente novamente!");
+					break;
 			}
 		}
-		for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
-			if (listaEmprestimos.getAlEmprestimos().indexOf(emprestimo) == opcaoEmprestimo) {
-
-				emprestimo.setDataDevolucao(LocalDate.now());
-				emprestimo.getItem().setDisponibilidade(Disponibilidade.DISPONIVEL);
-				listaEmprestimos.removeEmprestimo(emprestimo);
-
-				System.out.println(emprestimo.getItem().getTituloItem());
-				System.out.println("Devolvido com sucesso!");
-
-				break;
-			}
-		}
+		return;
 	}
 
 	public static void menuAlterarEstado(Biblioteca bib) {
