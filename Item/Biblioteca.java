@@ -2,8 +2,9 @@ package Item;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.io.Serializable;
 
-public class Biblioteca{
+public class Biblioteca implements Serializable{
 
 	private String nomeBib;
 	private ArrayList<Item> alItem;

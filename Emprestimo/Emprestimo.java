@@ -1,11 +1,12 @@
 package Emprestimo;
 
 import java.time.LocalDate;
+import java.io.Serializable;
 
 import Amigo.Amigo;
 import Item.Item;
 
-public class Emprestimo {
+public class Emprestimo implements Serializable{
 
 	private Item item;
 	private Amigo amigo;

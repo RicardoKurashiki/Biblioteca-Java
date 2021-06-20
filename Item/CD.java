@@ -1,6 +1,6 @@
 package Item;
 
-public class CD extends Item {
+public class CD extends Item{
     // TODO => Ver mais caracteristicas
     private String banda;
     private String genero;

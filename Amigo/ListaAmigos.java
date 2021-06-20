@@ -1,8 +1,9 @@
 package Amigo;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class ListaAmigos {
+public class ListaAmigos implements Serializable{
 
 	private ArrayList<Amigo> alAmigos;
 

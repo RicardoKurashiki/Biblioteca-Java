@@ -1,6 +1,7 @@
 package Amigo;
+import java.io.Serializable;
 
-public class Amigo {
+public class Amigo implements Serializable{
 
 	private int idAmigo;
 	private String nomeAmigo;

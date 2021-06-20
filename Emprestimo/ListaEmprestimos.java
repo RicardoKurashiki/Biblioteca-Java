@@ -1,10 +1,10 @@
 package Emprestimo;
 
 import java.util.ArrayList;
-
+import java.io.Serializable;
 import Item.Disponibilidade;
 
-public class ListaEmprestimos {
+public class ListaEmprestimos implements Serializable{
 
 	private ArrayList<Emprestimo> alEmprestimos;
 

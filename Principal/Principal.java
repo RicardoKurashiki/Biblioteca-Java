@@ -4,6 +4,13 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.util.Collections;
 
+// -> Leitura e Escrita de dados
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.io.IOException;
+
 import Item.Biblioteca;
 import Item.BluRay;
 import Item.CD;
@@ -576,5 +583,32 @@ public class Principal {
 		}} else {
 				System.out.println("\nSem itens");
 		}
+	}
+
+	public static void gravarDados(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos, ListaEmprestimos todosEmprestimos){
+		ObjectOutputStream saida = null;
+
+		saida = new ObjectOutputStream(new FileOutputStream("C:\\Users\\carlo\\Documents\\GitHub\\Estacionamento-Java\\Dados\\Dados_Binarios.txt"));
+		saida.writeObject(bib);
+		saida.writeObject(listaAmigos);
+		saida.writeObject(listaEmprestimos);
+		saida.writeObject(todosEmprestimos);
+
+		saida.close();
+
+		System.out.println("Dados registrados com sucesso!");
+	}
+
+	public static void lerDados(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos, ListaEmprestimos todosEmprestimos){
+		ObjectInputStream entrada = null;
+		entrada = new ObjectInputStream(new FileInputStream("C:\\Users\\carlo\\Documents\\GitHub\\Estacionamento-Java\\Dados\\Dados_Binarios.txt"));
+		bib = (Biblioteca) entrada.readObject();
+		listaAmigos = (ListaAmigos) entrada.readObject();
+		listaEmprestimos = (ListaEmprestimos) entrada.readObject();
+		todosEmprestimos = (ListaEmprestimos) entrada.readObject();
+
+		entrada.close();
+
+		System.out.println("Dados carregados com sucesso!");
 	}
 }
