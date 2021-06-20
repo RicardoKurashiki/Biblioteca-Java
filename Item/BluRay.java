@@ -31,7 +31,11 @@ public class BluRay extends Item {
 
     @Override
     public String toString() {
-        return "BluRay: " + super.getTituloItem();
+        if (genero == null){
+            return "BluRay: " + super.getTituloItem();
+        } else {
+            return "BluRay: " + super.getTituloItem() + " do gênero de " + genero;
+        }
     }
 
 }

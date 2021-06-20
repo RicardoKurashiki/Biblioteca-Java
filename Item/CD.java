@@ -4,6 +4,7 @@ public class CD extends Item {
     // TODO => Ver mais caracteristicas
     private String banda;
     private String genero;
+    private int numMusicas;
 
     // -> Construtores
     public CD(int idItem, String tituloItem) {
@@ -25,6 +26,23 @@ public class CD extends Item {
         super.setDisponibilidade(Disponibilidade.DISPONIVEL);
         this.banda = banda;
         this.genero = genero;
+    }
+
+    public CD(int idItem, String tituloItem, String banda, int numMusicas){
+        super.setIdItem(idItem);
+        super.setTitulo(tituloItem);
+        super.setDisponibilidade(Disponibilidade.DISPONIVEL);
+        this.banda = banda;
+        this.numMusicas = numMusicas;
+    }
+
+    public CD(int idItem, String tituloItem, String banda, String genero, int numMusicas){
+        super.setIdItem(idItem);
+        super.setTitulo(tituloItem);
+        super.setDisponibilidade(Disponibilidade.DISPONIVEL);
+        this.banda = banda;
+        this.genero = genero;
+        this.numMusicas = numMusicas;
     }
 
     // -> Getters

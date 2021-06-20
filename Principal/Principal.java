@@ -134,17 +134,25 @@ public class Principal {
 				System.out.println("\n--- Novo BluRay ---");
 				System.out.print("Nome do BluRay: ");
 				nomeItem = scanner.nextLine();
-				bib.addNovoItem(new BluRay(bib.getAlItem().size(), nomeItem));
-				System.out.println("Item adicionado!");
-				System.out.println("Nome: " + nomeItem);
+				System.out.print("Gênero do filme: ");
+				String genItem = scanner.nextLine();
+				bib.addNovoItem(new BluRay(bib.getAlItem().size(), nomeItem, genItem));
+				System.out.println("\nItem adicionado!");
+				System.out.println("Filme " + nomeItem + ", do gênero de " + genItem + ".");
 				break;
 			case 2:
 				System.out.println("\n--- Novo CD ---");
 				System.out.print("Nome do CD: ");
 				nomeItem = scanner.nextLine();
-				bib.addNovoItem(new CD(bib.getAlItem().size(), nomeItem));
-				System.out.println("Item adicionado!");
-				System.out.println("Nome: " + nomeItem);
+				System.out.print("Nome da banda/artista: ");
+				String nomeBanda = scanner.nextLine();
+				System.out.print("Gênero Musical: ");
+				String generoMusical = scanner.nextLine();
+				System.out.print("Número de músicas: ");
+				int numMusicas = scanner.nextInt();
+				bib.addNovoItem(new CD(bib.getAlItem().size(), nomeItem, nomeBanda, generoMusical, numMusicas));
+				System.out.println("\nItem adicionado!");
+				System.out.println("O disco " + nomeItem + " da banda/do artista " + nomeBanda + ", com " + numMusicas + " músicas.");
 				break;
 			case 3:
 				System.out.println("\n--- Novo Livro ---");

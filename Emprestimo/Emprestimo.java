@@ -7,35 +7,12 @@ import Item.Item;
 
 public class Emprestimo {
 
-	private int idAmigo;
-	private int idItem;
+	private Item item;
+	private Amigo amigo;
 	private LocalDate dataEmprestimo;
 	private LocalDate dataDevolucao;
 
-	// para a equipe pensar nesta repetição, pois pode-se obter os objetos pelo IDs
-	private Item item;
-	private Amigo amigo;
-
 	// -> Construtores
-	public Emprestimo(int idAmigo, int idItem, LocalDate dataEmprestimo, LocalDate dataDevolucao) {
-		this.idAmigo = idAmigo;
-		this.idItem = idItem;
-		this.dataEmprestimo = dataEmprestimo;
-		this.dataDevolucao = dataDevolucao;
-	}
-
-	public Emprestimo(int idAmigo, int idItem, LocalDate dataEmprestimo) {
-		this.idAmigo = idAmigo;
-		this.idItem = idItem;
-		this.dataEmprestimo = dataEmprestimo;
-	}
-
-	public Emprestimo(int idAmigo, int idItem) {
-		this.idAmigo = idAmigo;
-		this.idItem = idItem;
-		this.dataEmprestimo = LocalDate.now();
-	}
-
 	public Emprestimo(Amigo amigo, Item item, LocalDate dataEmprestimo, LocalDate dataDevolucao) {
 		this.amigo = amigo;
 		this.item = item;
@@ -57,18 +34,10 @@ public class Emprestimo {
 
 	// -> Getters e Setters
 	public int getIdAmigo() {
-		return this.idAmigo;
-	}
-
-	public int getIdAmigoClasse() {
 		return this.amigo.getIdAmigo();
 	}
 
 	public int getIdItem() {
-		return this.idItem;
-	}
-
-	public int getIdItemClasse() {
 		return this.item.getIdItem();
 	}
 
@@ -86,22 +55,6 @@ public class Emprestimo {
 
 	public LocalDate getDataDevolucao() {
 		return this.dataDevolucao;
-	}
-
-	public void setIdAmigo(int id) {
-		this.idAmigo = id;
-	}
-
-	public void setIdAmigo(Amigo amigo) {
-		this.idAmigo = amigo.getIdAmigo();
-	}
-
-	public void setIdItem(int id) {
-		this.idItem = id;
-	}
-
-	public void setIdItem(Item item) {
-		this.idItem = item.getIdItem();
 	}
 
 	public void setDataEmprestimo(LocalDate data) {
