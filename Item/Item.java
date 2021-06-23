@@ -38,5 +38,4 @@ public abstract class Item implements Comparable<Item>, Serializable{
 	public int compareTo(Item outroItem){
 		return tituloItem.compareTo(outroItem.getTituloItem());
 	}
-
 }

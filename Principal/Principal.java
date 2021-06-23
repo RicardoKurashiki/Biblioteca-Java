@@ -2,6 +2,7 @@ package Principal;
 
 import java.util.Scanner;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 
 // -> Leitura e Escrita de dados
@@ -28,36 +29,36 @@ public class Principal {
 		Biblioteca bib = new Biblioteca("Biblioteca Pessoal");
 		ListaAmigos listaAmigos = new ListaAmigos();
 		ListaEmprestimos listaEmprestimos = new ListaEmprestimos();
-		ListaEmprestimos todosEmprestimos = new ListaEmprestimos();
 		boolean appOn = true;
 		Scanner scanner = new Scanner(System.in);
 
 		// --- DUMMIES --- //
-		// BluRay br1 = new BluRay(0, "As cronicas de Narnia");
-		// BluRay br2 = new BluRay(1, "Velozes e Furiosos");
-		// CD cd1 = new CD(2, "The Beatles");
-		// CD cd2 = new CD(3, "Chitaozinho e Xororo");
-		// Livro livro1 = new Livro(4, "Harry Potter");
-		// Livro livro2 = new Livro(5, "Jogador n1");
+		//BluRay br1 = new BluRay(0, "Interstelar", "Ficcao Cientifica");
+		//BluRay br2 = new BluRay(1, "Donnie Darko", "Suspense");
+		//CD cd1 = new CD(2, "The Life of Pablo", "Kanye West");
+		//CD cd2 = new CD(3, "Stuck", "Day Wave");
+		//Livro livro1 = new Livro(4, "Universo numa casca de noz", "Stephen Hawking", 224);
+		//Livro livro2 = new Livro(5, "Harry Potter e a Pedra Filosofal", "J. K. Rowling", 304);
 
-		// bib.addNovoItem(br1);
-		// bib.addNovoItem(br2);
-		// bib.addNovoItem(cd1);
-		// bib.addNovoItem(cd2);
-		// bib.addNovoItem(livro1);
-		// bib.addNovoItem(livro2);
+		//bib.addNovoItem(br1);
+		//bib.addNovoItem(br2);
+		//bib.addNovoItem(cd1);
+		//bib.addNovoItem(cd2);
+		//bib.addNovoItem(livro1);
+		//bib.addNovoItem(livro2);
 
-		// Amigo amigo1 = new Amigo(0, "PICHAUs Eduardo");
-		// Amigo amigo2 = new Amigo(1, "Mateus Ferro");
-		// Amigo amigo3 = new Amigo(2, "Joao Klein");
-		// Amigo amigo4 = new Amigo(3, "Milena Silverio");
+		//Amigo amigo1 = new Amigo(0, "Carlos");
+		//Amigo amigo2 = new Amigo(1, "Ricardo");
+		//Amigo amigo3 = new Amigo(2, "Joao");
+		//Amigo amigo4 = new Amigo(3, "Ferro");
+		//Amigo amigo5 = new Amigo(4, "Milena");
 
-		// listaAmigos.addAmigo(amigo1);
-		// listaAmigos.addAmigo(amigo2);
-		// listaAmigos.addAmigo(amigo3);
-		// listaAmigos.addAmigo(amigo4);
+		//listaAmigos.addAmigo(amigo1);
+		//listaAmigos.addAmigo(amigo2);
+		//listaAmigos.addAmigo(amigo3);
+		//listaAmigos.addAmigo(amigo4);
+		//listaAmigos.addAmigo(amigo5);
 		// --- FIM DOS DUMMIES --- //
-
 		while (appOn) {
 			int escolha = menu();
 			switch (escolha) {
@@ -68,7 +69,7 @@ public class Principal {
 					menuRegistrarAmigo(listaAmigos);
 					break;
 				case 3:
-					menuEmprestarItem(bib, listaAmigos, listaEmprestimos, todosEmprestimos);
+					menuEmprestarItem(bib, listaAmigos, listaEmprestimos);
 					break;
 				case 4:
 					menuDevolverItem(bib, listaAmigos, listaEmprestimos);
@@ -77,10 +78,10 @@ public class Principal {
 					menuEmprestimosAtuais(listaEmprestimos);
 					break;
 				case 6:
-					menuTodosEmprestimos(todosEmprestimos);
+					menuTodosEmprestimos(listaEmprestimos);
 					break;
 				case 7:
-					menuHistoricoItem(bib, todosEmprestimos);
+					menuHistoricoItem(bib, listaEmprestimos);
 					break;
 				case 8:
 					menuTodosItens(bib);
@@ -89,10 +90,10 @@ public class Principal {
 					menuAlterarEstado(bib);
 					break;
 				case 10:
-					gravarDados(bib, listaAmigos, listaEmprestimos, todosEmprestimos);
+					gravarDados(bib, listaAmigos, listaEmprestimos);
 					break;
 				case 11:
-					lerDados(bib, listaAmigos, listaEmprestimos, todosEmprestimos);
+					lerDados(bib, listaAmigos, listaEmprestimos);
 					break;
 				case 0:
 					appOn = false;
@@ -146,6 +147,8 @@ public class Principal {
 		}
 		scanner.nextLine();
 		switch (tipoItem) {
+			case 0:
+				break;
 			case 1:
 				System.out.println("\n--- Novo BluRay ---");
 				System.out.print("Nome do BluRay: ");
@@ -164,12 +167,9 @@ public class Principal {
 				String nomeBanda = scanner.nextLine();
 				System.out.print("Gênero Musical: ");
 				String generoMusical = scanner.nextLine();
-				System.out.print("Número de músicas: ");
-				int numMusicas = scanner.nextInt();
-				bib.addNovoItem(new CD(bib.getAlItem().size(), nomeItem, nomeBanda, generoMusical, numMusicas));
+				bib.addNovoItem(new CD(bib.getAlItem().size(), nomeItem, nomeBanda, generoMusical));
 				System.out.println("\nItem adicionado!");
-				System.out.println("O disco " + nomeItem + " da banda/do artista " + nomeBanda + ", com " + numMusicas
-						+ " músicas.");
+				System.out.println("O disco " + nomeItem + " produzida pela banda/artista " + nomeBanda + ", do genero " + generoMusical);
 				break;
 			case 3:
 				System.out.println("\n--- Novo Livro ---");
@@ -180,7 +180,7 @@ public class Principal {
 				System.out.print("Total de paginas: ");
 				totalPag = scanner.nextInt();
 				bib.addNovoItem(new Livro(bib.getAlItem().size(), nomeItem, nomeAutor, totalPag));
-				System.out.println("Item adicionado!");
+				System.out.println("\nItem adicionado!");
 				System.out.println(nomeItem + ", de " + nomeAutor + ", com " + totalPag + " paginas.");
 				break;
 			default:
@@ -199,14 +199,13 @@ public class Principal {
 		System.out.print("Nome do amigo: ");
 		nomeAmigo = scanner.nextLine();
 		listaAmigos.addAmigo(new Amigo(idAmigo, nomeAmigo));
-		System.out.println("Amigo adicionado!");
+		System.out.println("\nAmigo adicionado!");
 		System.out.println(idAmigo + " - " + nomeAmigo);
 	}
 
-	public static void menuEmprestarItem(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos,
-			ListaEmprestimos todosEmprestimos) {
+	public static void menuEmprestarItem(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos) {
 		Scanner scanner = new Scanner(System.in);
-		int opcaoItem = 0, opcaoAmigo = 0, dia, mes, ano, hora, minuto;
+		int opcaoItem = 0, opcaoAmigo = 0, dia, mes, ano;
 		boolean invalidInput = true;
 		while (invalidInput) {
 			System.out.println("\n--- Emprestar item ---");
@@ -281,7 +280,6 @@ public class Principal {
 								Emprestimo novoEmprestimo = new Emprestimo(amigo, item, LocalDate.of(ano, mes, dia));
 								item.setDisponibilidade(Item.Disponibilidade.EMPRESTADO);
 								listaEmprestimos.addEmprestimo(novoEmprestimo);
-								todosEmprestimos.addEmprestimo(novoEmprestimo);
 								System.out.println("Emprestado com sucesso!");
 								break;
 							}
@@ -296,7 +294,6 @@ public class Principal {
 								Emprestimo novoEmprestimo = new Emprestimo(amigo, item);
 								item.setDisponibilidade(Item.Disponibilidade.EMPRESTADO);
 								listaEmprestimos.addEmprestimo(novoEmprestimo);
-								todosEmprestimos.addEmprestimo(novoEmprestimo);
 								System.out.println("Emprestado com sucesso!");
 								break;
 							}
@@ -313,7 +310,7 @@ public class Principal {
 
 	public static void menuDevolverItem(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos) {
 		Scanner scanner = new Scanner(System.in);
-		int opcaoEmprestimo = 0, dia = 0, mes = 0, ano = 0;
+		int opcaoDevolucao = 0, dia = 0, mes = 0, ano = 0;
 		boolean invalidInput = true;
 
 		while (invalidInput) {
@@ -349,31 +346,32 @@ public class Principal {
 
 						System.out.println("\n--- Devolver item ---");
 						for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
-							System.out.println("<" + listaEmprestimos.getAlEmprestimos().indexOf(emprestimo) + "> "
-									+ emprestimo.getItem().getClass().getSimpleName() + " - "
-									+ emprestimo.getItem().getTituloItem() + " || "
-									+ emprestimo.getAmigo().getNomeAmigo());
+							if (emprestimo.getItem().getDisponibilidade().equals(Disponibilidade.EMPRESTADO) && emprestimo.getDataDevolucao()==null){
+								System.out.println("<" + emprestimo.getItem().getIdItem() + "> "
+										+ emprestimo.getItem().getClass().getSimpleName() + " - "
+										+ emprestimo.getItem().getTituloItem() + " || "
+										+ emprestimo.getAmigo().getNomeAmigo());
+							}
 						}
-						System.out.println("<" + listaEmprestimos.getAlEmprestimos().size() + "> Voltar para menu");
+						System.out.println("<" + bib.getAlItem().size() + "> Voltar para menu");
 						System.out.print(">> ");
-						opcaoEmprestimo = scanner.nextInt();
-						if (opcaoEmprestimo == listaEmprestimos.getAlEmprestimos().size()) {
+						opcaoDevolucao = scanner.nextInt();
+						if (opcaoDevolucao == bib.getAlItem().size()) {
 							return;
-						} else if (opcaoEmprestimo >= 0
-								&& opcaoEmprestimo < listaEmprestimos.getAlEmprestimos().size()) {
+						} else if (opcaoDevolucao >= 0
+								&& opcaoDevolucao < bib.getAlItem().size()) {
 							invalidInput = false;
 						} else {
 							System.out.println("\nValor incorreto! Tente novamente!");
 						}
 					}
 					for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
-						if (listaEmprestimos.getAlEmprestimos().indexOf(emprestimo) == opcaoEmprestimo) {
+						if (emprestimo.getItem().getIdItem() == opcaoDevolucao && emprestimo.getDataDevolucao() == null) {
 
 							emprestimo.setDataDevolucao(LocalDate.of(ano, mes, dia));
 							emprestimo.getItem().setDisponibilidade(Disponibilidade.DISPONIVEL);
-							listaEmprestimos.removeEmprestimo(emprestimo);
 
-							System.out.println(emprestimo.getItem().getTituloItem());
+							System.out.println("\n" + emprestimo.getItem().getTituloItem());
 							System.out.println("Devolvido com sucesso!");
 
 							break;
@@ -386,18 +384,20 @@ public class Principal {
 					while (invalidInput) {
 						System.out.println("\n--- Devolver item ---");
 						for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
-							System.out.println("<" + listaEmprestimos.getAlEmprestimos().indexOf(emprestimo) + "> "
-									+ emprestimo.getItem().getClass().getSimpleName() + " - "
-									+ emprestimo.getItem().getTituloItem() + " || "
-									+ emprestimo.getAmigo().getNomeAmigo());
+							if (emprestimo.getItem().getDisponibilidade().equals(Disponibilidade.EMPRESTADO) && emprestimo.getDataDevolucao() == null){
+								System.out.println("<" + emprestimo.getItem().getIdItem() + "> "
+										+ emprestimo.getItem().getClass().getSimpleName() + " - "
+										+ emprestimo.getItem().getTituloItem() + " || "
+										+ emprestimo.getAmigo().getNomeAmigo());
+							}
 						}
-						System.out.println("<" + listaEmprestimos.getAlEmprestimos().size() + "> Voltar para menu");
+						System.out.println("<" + bib.getAlItem().size() + "> Voltar para menu");
 						System.out.print(">> ");
-						opcaoEmprestimo = scanner.nextInt();
-						if (opcaoEmprestimo == listaEmprestimos.getAlEmprestimos().size()) {
+						opcaoDevolucao = scanner.nextInt();
+						if (opcaoDevolucao == bib.getAlItem().size()) {
 							return;
-						} else if (opcaoEmprestimo >= 0
-								&& opcaoEmprestimo < listaEmprestimos.getAlEmprestimos().size()) {
+						} else if (opcaoDevolucao >= 0
+								&& opcaoDevolucao < bib.getAlItem().size()) {
 							invalidInput = false;
 						} else {
 							System.out.println("\nValor incorreto! Tente novamente!");
@@ -405,12 +405,11 @@ public class Principal {
 					}
 
 					for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
-						if (listaEmprestimos.getAlEmprestimos().indexOf(emprestimo) == opcaoEmprestimo) {
+						if (emprestimo.getItem().getIdItem() == opcaoDevolucao && emprestimo.getDataDevolucao() == null) {
 							emprestimo.setDataDevolucao(LocalDate.now());
 							emprestimo.getItem().setDisponibilidade(Disponibilidade.DISPONIVEL);
-							listaEmprestimos.removeEmprestimo(emprestimo);
 
-							System.out.println(emprestimo.getItem().getTituloItem());
+							System.out.println("\n" + emprestimo.getItem().getTituloItem());
 							System.out.println("Devolvido com sucesso!");
 
 							break;
@@ -481,9 +480,13 @@ public class Principal {
 								"\n" + item.getTituloItem() + " foi alterado para " + Disponibilidade.EMPRESTADO + "!");
 						break;
 					case 3:
-						item.setDisponibilidade(Disponibilidade.CONSULTALOCAL);
-						System.out.println("\n" + item.getTituloItem() + " foi alterado para "
-								+ Disponibilidade.CONSULTALOCAL + "!");
+						if(item.getDisponibilidade().equals(Disponibilidade.EMPRESTADO)){
+							System.out.println("\nNão foi possível alterar o estado do item para Consulta Local, pois o item está emprestado.");
+						} else {
+							item.setDisponibilidade(Disponibilidade.CONSULTALOCAL);
+							System.out.println("\n" + item.getTituloItem() + " foi alterado para "
+									+ Disponibilidade.CONSULTALOCAL + "!");
+						}
 						break;
 					case 4:
 						item.setDisponibilidade(Disponibilidade.DANIFICADO);
@@ -507,21 +510,23 @@ public class Principal {
 		// - Para todos os empréstimos
 		if (!listaEmprestimos.getAlEmprestimos().isEmpty()) {
 			for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
-				System.out.println("\n- Título do item: <" + emprestimo.getItem().getIdItem() + "> "
-						+ emprestimo.getItem().getTituloItem());
-				System.out.println("- Para quem foi emprestado: <" + emprestimo.getAmigo().getIdAmigo() + "> "
-						+ emprestimo.getAmigo().getNomeAmigo());
-				System.out.println("- Quando foi emprestado: " + emprestimo.getDataEmprestimo());
+				if (emprestimo.getItem().getDisponibilidade().equals(Disponibilidade.EMPRESTADO) && emprestimo.getDataDevolucao() == null) {
+					System.out.println("\n- Título do item: <" + emprestimo.getItem().getIdItem() + "> "
+							+ emprestimo.getItem().getTituloItem());
+					System.out.println("- Para quem foi emprestado: <" + emprestimo.getAmigo().getIdAmigo() + "> "
+							+ emprestimo.getAmigo().getNomeAmigo());
+					System.out.println("- Quando foi emprestado: " + emprestimo.getDataEmprestimo());
+				}
 			}
 		} else {
 			System.out.println("\nSem empréstimos");
 		}
 	}
 
-	public static void menuTodosEmprestimos(ListaEmprestimos todosEmprestimos) {
-		if (!todosEmprestimos.getAlEmprestimos().isEmpty()) {
+	public static void menuTodosEmprestimos(ListaEmprestimos listaEmprestimos) {
+		if (!listaEmprestimos.getAlEmprestimos().isEmpty()) {
 			System.out.println("\n--- Emprestados e Devolvidos ---");
-			for (Emprestimo emprestimo : todosEmprestimos.getAlEmprestimos()) {
+			for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
 				if (emprestimo.getDataDevolucao() != null) {
 					System.out.println("\n- Título do item: <" + emprestimo.getItem().getIdItem() + "> "
 							+ emprestimo.getItem().getTituloItem());
@@ -532,7 +537,7 @@ public class Principal {
 				}
 			}
 			System.out.println("\n--- Emprestados ---");
-			for (Emprestimo emprestimo : todosEmprestimos.getAlEmprestimos()) {
+			for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
 				if (emprestimo.getDataDevolucao() == null) {
 					System.out.println("\n- Título do item: <" + emprestimo.getItem().getIdItem() + "> "
 							+ emprestimo.getItem().getTituloItem());
@@ -546,7 +551,7 @@ public class Principal {
 		}
 	}
 
-	public static void menuHistoricoItem(Biblioteca bib, ListaEmprestimos todosEmprestimos) {
+	public static void menuHistoricoItem(Biblioteca bib, ListaEmprestimos listaEmprestimos) {
 		Scanner scanner = new Scanner(System.in);
 		int escolhaItem = 0;
 		int idEscolha = 0;
@@ -556,7 +561,7 @@ public class Principal {
 		while (invalidInput) {
 			System.out.println("\n--- Historico do Item ---");
 			for (var item : bib.getAlItem()) {
-				System.out.println("<" + bib.getAlItem().indexOf(item) + "> " + item.getClass().getSimpleName() + " - "
+				System.out.println("<" + item.getIdItem() + "> " + item.getClass().getSimpleName() + " - "
 						+ item.getTituloItem());
 			}
 			System.out.println("<" + bib.getAlItem().size() + "> Voltar para menu");
@@ -573,7 +578,7 @@ public class Principal {
 		}
 
 		System.out.println("\n--- Histórico de Empréstimos ---");
-		for (Emprestimo emprestimo : todosEmprestimos.getAlEmprestimos()) {
+		for (Emprestimo emprestimo : listaEmprestimos.getAlEmprestimos()) {
 			if (idEscolha == emprestimo.getItem().getIdItem()) {
 				if (emprestimo.getDataDevolucao() == null) {
 					haHistorico = true;
@@ -602,10 +607,16 @@ public class Principal {
 	}
 
 	public static void menuTodosItens(Biblioteca bib) {
-		Collections.sort(bib.getAlItem());
+		// Salvando a antiga ordenação para depois do sort os índices não ficarem bagunçados
+		Biblioteca bibAux = new Biblioteca("bibAux");
+		for (var item : bib.getAlItem()) {
+			bibAux.addNovoItem(item);
+		}
+
+		Collections.sort(bibAux.getAlItem());
 		System.out.println("\n--- Itens da Biblioteca ---");
-		if (!bib.getAlItem().isEmpty()) {
-			for (var item : bib.getAlItem()) {
+		if (!bibAux.getAlItem().isEmpty()) {
+			for (var item : bibAux.getAlItem()) {
 				System.out.println("\nTitulo: " + item.getTituloItem());
 				System.out.println("Tipo de item: " + item.getClass().getSimpleName());
 				System.out.println("Disponibilidade: " + item.getDisponibilidade());
@@ -615,18 +626,16 @@ public class Principal {
 		}
 	}
 
-	public static void gravarDados(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos,
-			ListaEmprestimos todosEmprestimos) {
+	public static void gravarDados(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos) {
 		ObjectOutputStream saida = null;
 
 		try {
 			// TODO: Mudar o caminho para o diretório correto no seu computador.
 			saida = new ObjectOutputStream(new FileOutputStream(
-					"C:\\Users\\PICHAU\\Documents\\GitHub\\Pessoal\\Biblioteca-Java\\Dados\\Dados_Binarios.txt"));
+					"C:\\Users\\carlo\\Documents\\GitHub\\Biblioteca-Java\\Dados\\Dados_Binarios.txt"));
 			saida.writeObject(bib);
 			saida.writeObject(listaAmigos);
 			saida.writeObject(listaEmprestimos);
-			saida.writeObject(todosEmprestimos);
 		} catch (IOException e1) {
 			System.out.println(e1.getMessage());
 		} finally {
@@ -638,25 +647,22 @@ public class Principal {
 			}
 		}
 
-		System.out.println("Dados registrados com sucesso!");
+		System.out.println("\nDados registrados com sucesso!");
 	}
 
-	public static void lerDados(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos,
-			ListaEmprestimos todosEmprestimos) {
+	public static void lerDados(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos) {
 		ObjectInputStream entrada = null;
 		Biblioteca bibtemp = null;
 		ListaAmigos listaAmiTemp = null;
 		ListaEmprestimos listaEmpTemp = null;
-		ListaEmprestimos todosEmpTemp = null;
 
 		try {
 			// TODO: Mudar o caminho para o diretório correto no seu computador.
 			entrada = new ObjectInputStream(new FileInputStream(
-					"C:\\Users\\PICHAU\\Documents\\GitHub\\Pessoal\\Biblioteca-Java\\Dados\\Dados_Binarios.txt"));
+					"C:\\Users\\carlo\\Documents\\GitHub\\Biblioteca-Java\\Dados\\Dados_Binarios.txt"));
 			bibtemp = (Biblioteca) entrada.readObject();
 			listaAmiTemp = (ListaAmigos) entrada.readObject();
 			listaEmpTemp = (ListaEmprestimos) entrada.readObject();
-			todosEmpTemp = (ListaEmprestimos) entrada.readObject();
 		} catch (IOException e1) {
 			System.out.println(e1.getMessage());
 		} catch (ClassNotFoundException e2) {
@@ -673,10 +679,7 @@ public class Principal {
 
 					listaEmprestimos.setAlEmprestimos(listaEmpTemp.getAlEmprestimos());
 
-					todosEmprestimos.setAlEmprestimos(todosEmpTemp.getAlEmprestimos());
-
-					System.out.println("Dados carregados com sucesso!");
-
+					System.out.println("\nDados carregados com sucesso!");
 				}
 			} catch (IOException e3) {
 				System.out.println(e3.getMessage());

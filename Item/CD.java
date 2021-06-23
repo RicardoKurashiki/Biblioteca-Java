@@ -26,21 +26,6 @@ public class CD extends Item {
         this.genero = genero;
     }
 
-    public CD(int idItem, String tituloItem, String banda, int numMusicas) {
-        super.setIdItem(idItem);
-        super.setTitulo(tituloItem);
-        super.setDisponibilidade(Disponibilidade.DISPONIVEL);
-        this.banda = banda;
-    }
-
-    public CD(int idItem, String tituloItem, String banda, String genero, int numMusicas) {
-        super.setIdItem(idItem);
-        super.setTitulo(tituloItem);
-        super.setDisponibilidade(Disponibilidade.DISPONIVEL);
-        this.banda = banda;
-        this.genero = genero;
-    }
-
     // -> Getters
     public String getBanda() {
         return banda;
