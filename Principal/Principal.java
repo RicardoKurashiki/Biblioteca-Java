@@ -1,5 +1,10 @@
 package Principal;
 
+/**
+ * Programa principal, onde é construído a aplicação, seus menus, métodos e funcionalidades.
+ * @author Carlos Eduardo Marques A. Torres e Ricardo G. Kurashiki.
+ */
+
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -60,19 +65,24 @@ public class Principal {
 		//listaAmigos.addAmigo(amigo5);
 		// --- FIM DOS DUMMIES --- //
 		while (appOn) {
+			lerDados(bib, listaAmigos, listaEmprestimos);
 			int escolha = menu();
 			switch (escolha) {
 				case 1:
 					menuRegistrarItem(bib);
+					gravarDados(bib, listaAmigos, listaEmprestimos);
 					break;
 				case 2:
 					menuRegistrarAmigo(listaAmigos);
+					gravarDados(bib, listaAmigos, listaEmprestimos);
 					break;
 				case 3:
 					menuEmprestarItem(bib, listaAmigos, listaEmprestimos);
+					gravarDados(bib, listaAmigos, listaEmprestimos);
 					break;
 				case 4:
-					menuDevolverItem(bib, listaAmigos, listaEmprestimos);
+					menuDevolverItem(bib, listaEmprestimos);
+					gravarDados(bib, listaAmigos, listaEmprestimos);
 					break;
 				case 5:
 					menuEmprestimosAtuais(listaEmprestimos);
@@ -88,12 +98,7 @@ public class Principal {
 					break;
 				case 9:
 					menuAlterarEstado(bib);
-					break;
-				case 10:
 					gravarDados(bib, listaAmigos, listaEmprestimos);
-					break;
-				case 11:
-					lerDados(bib, listaAmigos, listaEmprestimos);
 					break;
 				case 0:
 					appOn = false;
@@ -106,9 +111,12 @@ public class Principal {
 		scanner.close();
 	}
 
+	/**
+	 * Método menu, apresenta o menu de opções para o usuário e retorna sua escolha para a main.
+	 * @return scanner.nextInt() - Opção de escolha do usuário. 
+	 */
 	public static int menu() {
 		Scanner scanner = new Scanner(System.in);
-
 		System.out.println("\n--- Menu ---");
 		System.out.println("<1> Registrar um item");
 		System.out.println("<2> Registrar um amigo");
@@ -119,13 +127,17 @@ public class Principal {
 		System.out.println("<7> Ver histórico do item");
 		System.out.println("<8> Ver todos os itens");
 		System.out.println("<9> Alterar estado de item");
-		System.out.println("<10> Gravar dados");
-		System.out.println("<11> Ler dados");
 		System.out.println("<0> Sair do aplicativo");
 		System.out.print(">> ");
 		return scanner.nextInt();
 	}
 
+	/**
+	 * Método menuRegistrarItem, apresenta o processo de registro de novos Itens, contendo os menus
+	 * de escolha e a lógica necessária para o armazenamento das informações do novo item.
+	 * @param bib - Recebe como parâmetro um objeto da classe Biblioteca, para adição do novo item
+	 * em sua ArrayList.
+	 */
 	public static void menuRegistrarItem(Biblioteca bib) {
 		Scanner scanner = new Scanner(System.in);
 		int tipoItem = 0, totalPag = 0;
@@ -190,6 +202,12 @@ public class Principal {
 		}
 	}
 
+	/**
+	 * Método menuRegistrarAmigo, apresenta o processo de registro de novos Amigos, contendo os menus 
+	 * de escolha e a lógica necessária para armazenamento das informações do novo amigo.
+	 * @param listaAmigos - Recebe como parâmetro um objeto da classe ListaAmigos, para adição do novo
+	 * amigo em sua ArrayList.
+	 */
 	public static void menuRegistrarAmigo(ListaAmigos listaAmigos) {
 		Scanner scanner = new Scanner(System.in);
 		String nomeAmigo = "";
@@ -203,6 +221,16 @@ public class Principal {
 		System.out.println(idAmigo + " - " + nomeAmigo);
 	}
 
+	/**
+	 * Método menuEmprestarItem, apresenta o processo de registro de novos Empréstimos, contendo os
+	 * menus de escolha e a lógica necessária para armazenamento das informações do novo Empréstimo.
+	 * @param bib - Recebe como parâmetro um objeto da classe Biblioteca, para verificação dos Itens
+	 * disponíveis para empréstimo.
+	 * @param listaAmigos - Recebe como parâmetro um objeto da classe ListaAmigos, para verificação
+	 * de qual amigo deseja pegar o Item emprestado.
+	 * @param listaEmprestimos - Recebe como parâmetro um objeto da classe ListaEmprestimos, para
+	 * armazenamento do pedido de empréstimo.
+	 */
 	public static void menuEmprestarItem(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos) {
 		Scanner scanner = new Scanner(System.in);
 		int opcaoItem = 0, opcaoAmigo = 0, dia, mes, ano;
@@ -308,7 +336,15 @@ public class Principal {
 		}
 	}
 
-	public static void menuDevolverItem(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos) {
+	/**
+	 * Método menuDevolverItem, apresenta o processo de registro de novas devoluções, contendo os
+	 * menus de escolha e a lógica necessária para armazenamento das informações da devolução.
+	 * @param bib - Recebe como parâmetro um objeto da classe Biblioteca, para verificação dos Itens
+	 * emprestados.
+	 * @param listaEmprestimos - Recebe como parâmetro um objeto da classe ListaEmprestimos, para
+	 * atualizar o Empréstimo com a data de devolução do item selecionado.
+	 */
+	public static void menuDevolverItem(Biblioteca bib, ListaEmprestimos listaEmprestimos) {
 		Scanner scanner = new Scanner(System.in);
 		int opcaoDevolucao = 0, dia = 0, mes = 0, ano = 0;
 		boolean invalidInput = true;
@@ -424,6 +460,12 @@ public class Principal {
 		return;
 	}
 
+	/**
+	 * Método menuAlterarEstado, apresenta o processo de alteração de estado dos Itens, contendo
+	 * os menus de escolha e a lógica necessária para alterar as informações dos Itens.
+	 * @param bib - Recebe como parâmetro um objeto da classe Biblioteca, para acessar e atualizar
+	 * o estado dos Itens presentes em sua ArrayList.
+	 */
 	public static void menuAlterarEstado(Biblioteca bib) {
 		Scanner scanner = new Scanner(System.in);
 		int opcaoDisp = 0, itemEscolhido = 0;
@@ -505,6 +547,12 @@ public class Principal {
 		}
 	}
 
+	/**
+	 * Método menuEmprestimosAtuais, realiza a demonstração de todos os empréstimos que ainda não
+	 * foram devolvidos.
+	 * @param listaEmprestimos - Recebe como parâmetro um objeto da classe ListaEmprestimos, para
+	 * a verificação de quais empréstimos em sua ArrayList ainda não foram devolvidos.
+	 */
 	public static void menuEmprestimosAtuais(ListaEmprestimos listaEmprestimos) {
 		System.out.println("\n--- Empréstimos atuais ---");
 		// - Para todos os empréstimos
@@ -523,6 +571,12 @@ public class Principal {
 		}
 	}
 
+	/**
+	 * Método menuTodosEmprestimos, um método adicional que realiza a demonstração de todo o
+	 * histórico de todas as movimentações realizadas na Biblioteca.
+	 * @param listaEmprestimos - Recebe como parâmetro um objeto da classe ListaEmprestimos, para
+	 * a verificação dos empréstimos atuais e já devolvidos.
+	 */
 	public static void menuTodosEmprestimos(ListaEmprestimos listaEmprestimos) {
 		if (!listaEmprestimos.getAlEmprestimos().isEmpty()) {
 			System.out.println("\n--- Emprestados e Devolvidos ---");
@@ -551,6 +605,14 @@ public class Principal {
 		}
 	}
 
+	/**
+	 * Método menuHistoricoItem, realiza a demonstração de todas as movimentações em determinado
+	 * item.
+	 * @param bib - Recebe como parâmetro um objeto da classe Biblioteca, para verificar qual 
+	 * item deseja realizar a consulta.
+	 * @param listaEmprestimos - Recebe como parâmetro um objeto da classe ListaEmprestimos, para
+	 * verificar as movimentações do item determinado pelo usuário.
+	 */
 	public static void menuHistoricoItem(Biblioteca bib, ListaEmprestimos listaEmprestimos) {
 		Scanner scanner = new Scanner(System.in);
 		int escolhaItem = 0;
@@ -606,6 +668,12 @@ public class Principal {
 
 	}
 
+	/**
+	 * Método menuTodosItens, realiza a demonstração de todos os itens disponíveis no acervo 
+	 * da Biblioteca em ordem alfabética.
+	 * @param bib - Recebe como parâmetro um objeto da classe Biblioteca, para a verificação dos 
+	 * itens presentes em sua ArrayList.
+	 */
 	public static void menuTodosItens(Biblioteca bib) {
 		// Salvando a antiga ordenação para depois do sort os índices não ficarem bagunçados
 		Biblioteca bibAux = new Biblioteca("bibAux");
@@ -626,6 +694,16 @@ public class Principal {
 		}
 	}
 
+	/**
+	 * Método gravarDados, realiza o registro em arquivo texto das informações das classes do 
+	 * programa.
+	 * @param bib - Recebe como parâmetro um objeto da classe Biblioteca, para armazenamento de
+	 * seus objetos.
+	 * @param listaAmigos - Recebe como parâmetro um objeto da classe ListaAmigos, para armazenamento
+	 * de seus objetos.
+	 * @param listaEmprestimos - Recebe como parâmetro um objeto da classe ListaEmprestimos, para 
+	 * armazenamento de seus objetos.
+	 */
 	public static void gravarDados(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos) {
 		ObjectOutputStream saida = null;
 
@@ -650,6 +728,16 @@ public class Principal {
 		System.out.println("\nDados registrados com sucesso!");
 	}
 
+	/**
+	 * Método lerDados, realiza a leitura do arquivo texto contendo as informações das classes do 
+	 * programa.
+	 * @param bib - Recebe como parâmetro um objeto da classe Biblioteca, para leitura de
+	 * seus objetos.
+	 * @param listaAmigos - Recebe como parâmetro um objeto da classe ListaAmigos, para leitura
+	 * de seus objetos.
+	 * @param listaEmprestimos - Recebe como parâmetro um objeto da classe ListaEmprestimos, para 
+	 * leitura de seus objetos.
+	 */
 	public static void lerDados(Biblioteca bib, ListaAmigos listaAmigos, ListaEmprestimos listaEmprestimos) {
 		ObjectInputStream entrada = null;
 		Biblioteca bibtemp = null;
@@ -665,6 +753,7 @@ public class Principal {
 			listaEmpTemp = (ListaEmprestimos) entrada.readObject();
 		} catch (IOException e1) {
 			System.out.println(e1.getMessage());
+			System.out.println("\nSem dados para leitura!");
 		} catch (ClassNotFoundException e2) {
 			System.out.println(e2.getMessage());
 		} finally {
@@ -678,8 +767,6 @@ public class Principal {
 					listaAmigos.setListaAmigos(listaAmiTemp.getListaAmigos());
 
 					listaEmprestimos.setAlEmprestimos(listaEmpTemp.getAlEmprestimos());
-
-					System.out.println("\nDados carregados com sucesso!");
 				}
 			} catch (IOException e3) {
 				System.out.println(e3.getMessage());
